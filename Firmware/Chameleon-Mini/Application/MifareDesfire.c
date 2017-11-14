@@ -1241,9 +1241,11 @@ static void MifareDesfireReset(void)
 
 /*
  * ISO/IEC 14443-4 implementation
- * Currently this only supports wrapping things in 14443-4 I-blocks.
  * To support EV2 cards emulation, proper support for handling 14443-4 
  * blocks will be implemented.
+ * Currently NOT supported:
+ * + Block chaining
+ * + Frame waiting time extension
  */
 
 void ISO144433AHalt(void);
@@ -1256,6 +1258,8 @@ typedef enum {
 static Iso144434StateType Iso144434State;
 static uint8_t Iso144434BlockNumber;
 static uint8_t Iso144434CardID;
+static uint8_t Iso144434LastBlockLength;
+static uint8_t Iso144434LastBlock[CODEC_BUFFER_SIZE];
 
 static void ISO144434SwitchState(Iso144434StateType NewState)
 {
@@ -1368,9 +1372,23 @@ uint16_t ISO144434ProcessBlock(uint8_t* Buffer, uint16_t ByteCount)
             break;
 
         case ISO14443_PCB_R_BLOCK:
-            /* R-block handling is not yet supported */
-            /* TODO: support at least retransmissions */
-            return ISO14443A_APP_NO_RESPONSE;
+            /* 7.5.4.3, rule 11 */
+            if ((PCB & ISO14443_PCB_BLOCK_NUMBER_MASK) == MyBlockNumber) {
+                /* NOTE: This already includes the CRC */
+                memmove(&Buffer[0], &Iso144434LastBlock[0], Iso144434LastBlockLength);
+                return Iso144434LastBlockLength;
+            }
+            if (PCB & ISO14443_PCB_R_BLOCK_ACKNAK_MASK) {
+                /* 7.5.4.3, rule 12 */
+                /* This is a NAK. Send an ACK back */
+                Buffer[0] = ISO14443_PCB_R_BLOCK_STATIC | ISO14443_PCB_R_BLOCK_ACK | MyBlockNumber;
+                ByteCount = 1;
+            } else {
+                /* This is an ACK */
+                /* NOTE: Chaining is not supported yet. */
+                return ISO14443A_APP_NO_RESPONSE;
+            }
+            break;
 
         case ISO14443_PCB_S_BLOCK:
             if (PCB == ISO14443_PCB_S_DESELECT) {
@@ -1389,7 +1407,11 @@ uint16_t ISO144434ProcessBlock(uint8_t* Buffer, uint16_t ByteCount)
     }
 
     ISO14443AAppendCRCA(Buffer, ByteCount);
-    return ByteCount + ISO14443A_CRCA_SIZE;
+    /* Stash the block for possible retransmissions */
+    ByteCount += ISO14443A_CRCA_SIZE;
+    Iso144434LastBlockLength = ByteCount;
+    memmove(&Iso144434LastBlock[0], &Buffer[0], ByteCount);
+    return ByteCount;
 }
 
 /*
