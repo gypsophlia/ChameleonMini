@@ -22,6 +22,8 @@ eventTypes = {
 
     0x40: { 'name': 'CODEC RX',       'decoder': binaryDecoder },
     0x41: { 'name': 'CODEC TX',       'decoder': binaryDecoder },
+    0x42: { 'name': 'CODEC RX W/PARITY', 'decoder': binaryDecoder },
+    0x43: { 'name': 'CODEC TX W/PARITY', 'decoder': binaryDecoder },
 
     0x53: { 'name': '14443-3A STATE', 'decoder': binaryDecoder },
     0x54: { 'name': '14443-4 STATE',  'decoder': binaryDecoder },
@@ -35,9 +37,9 @@ eventTypes = {
     
     0x90: { 'name': 'APP AUTH',       'decoder': binaryDecoder },
     0x91: { 'name': 'APP HALT',       'decoder': binaryDecoder },
-    0x92: { 'name': 'APP UNKNOWN',       'decoder': binaryDecoder },
+    0x92: { 'name': 'APP UNKNOWN',    'decoder': binaryDecoder },
     
-    0xA0: { 'name': 'APP AUTHING',    'decoder': binaryDecoder },
+    0xA0: { 'name': 'APP AUTHING' ,    'decoder': binaryDecoder },
     0xA1: { 'name': 'APP AUTHED',      'decoder': binaryDecoder },
 
     0xC0: { 'name': 'APP AUTH FAILED', 'decoder': binaryDecoder },
@@ -47,9 +49,12 @@ eventTypes = {
     0xD0: { 'name': 'APP AUTH KEY',     'decoder': binaryDecoder },
     0xD1: { 'name': 'APP NONCE B',      'decoder': binaryDecoder },
     0xD2: { 'name': 'APP NONCE AB',     'decoder': binaryDecoder },
+    
+    0xFF: { 'name': 'BOOT',            'decoder': binaryDecoder },
 }
 
 TIMESTAMP_MAX = 65536
+eventTypes = { i : ({'name': 'UNKNOWN', 'decoder': binaryDecoder} if i not in eventTypes.keys() else eventTypes[i]) for i in range(256) }
 
 def parseBinary(binaryStream):
     log = []

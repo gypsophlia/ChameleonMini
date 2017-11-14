@@ -2,10 +2,21 @@ Chameleon-Mini
 ==============
 This is the official repository of ChameleonMini, a freely programmable, portable tool for NFC security analysis that can emulate and clone contactless cards, read RFID tags and sniff/log RF data. Thanks to over 1700 backers from our [Kickstarter project](https://www.kickstarter.com/projects/1980078555/chameleonmini-a-versatile-nfc-card-emulator-and-mo), the current Revision G has been realized by Kasper & Oswald GmbH.
 
+The ChameleonMini RevG is now also available via the Kasper & Oswald [Webshop](https://shop.kasper.it/). Thank you for supporting the project!
+
+IMPORTANT: Third-party Clones
+------------------
+We are aware of various third-party ChameleonMini clones or modified variants that are available on the Internet. Warning: We have evidence that some of these devices are defective or suffer from reading problems et cetera. Please understand that we cannot give support for these non-official devices, as we have no schematics / layout or other information, nor do we know the manufacturers. In case of problems, please contact the manufacturers of your device directly. 
+
+Note to the manufacturers: Some of the third-party ChameleonMini are violating the ChameleonMini license, please obey the license (see LICENSE.txt)!
 
 First Steps
 -----------
 To upgrade the firmware of your ChameleonMini, please visit the [Getting Started page](http://rawgit.com/emsec/ChameleonMini/master/Doc/Doxygen/html/Page_GettingStarted.html) from the [doxygen documentation](http://rawgit.com/emsec/ChameleonMini/master/Doc/Doxygen/html/index.html).
+
+Supported Cards and Codecs
+--------------------------
+See [here](https://github.com/emsec/ChameleonMini/wiki/Supported-Cards-and--Codecs).
 
 
 Questions

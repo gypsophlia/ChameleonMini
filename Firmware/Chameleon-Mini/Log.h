@@ -4,8 +4,9 @@
 #include "Common.h"
 
 #define LOG_SIZE	2048
-#define FRAM_LOG_START_ADDR	0x4000 // from the start of the second half of FRAM
-#define FRAM_LOG_SIZE		0x4000 // the whole second half
+#define FRAM_LOG_ADDR_ADDR	0x4000 // start of the second half of FRAM
+#define FRAM_LOG_START_ADDR	0x4002 // directly after the address
+#define FRAM_LOG_SIZE		0x3FFE // the whole second half (minus the 2 Bytes of Address)
 
 /** Enum for log entry type. \note Every entry type has a specific integer value, which can be found in the source code. */
 typedef enum {
@@ -19,6 +20,8 @@ typedef enum {
     /* Codec */
     LOG_INFO_CODEC_RX_DATA		= 0x40, ///< Currently active codec received data.
     LOG_INFO_CODEC_TX_DATA		= 0x41, ///< Currently active codec sent data.
+    LOG_INFO_CODEC_RX_DATA_W_PARITY		= 0x42, ///< Currently active codec received data.
+    LOG_INFO_CODEC_TX_DATA_W_PARITY		= 0x43, ///< Currently active codec sent data.
 
     /* ISO 14443 related entries */
     LOG_ISO14443_3A_STATE       = 0x53,
@@ -44,6 +47,9 @@ typedef enum {
     LOG_APP_AUTH_KEY            = 0xD0, ///< The key used for authentication
     LOG_APP_NONCE_B             = 0xD1, ///< Nonce B's value (generated)
     LOG_APP_NONCE_AB            = 0xD2, ///< Nonces A and B values (received)
+
+    LOG_INFO_SYSTEM_BOOT		= 0xFF, ///< Chameleon boots
+
     LOG_EMPTY 					= 0x00  ///< Empty Log Entry. This is not followed by a length byte nor the two systick bytes nor any data.
 } LogEntryEnum;
 

@@ -17,6 +17,9 @@ SETTINGS	+= -DCONFIG_ISO14443A_READER_SUPPORT
 #Support magic mode on mifare classic configuration
 SETTINGS	+= -DSUPPORT_MF_CLASSIC_MAGIC_MODE
 
+#Don't touch manufacturer byte with BUTTON_ACTION_UID_LEFT_(DE/IN)CREMENT
+SETTINGS	+= -DSUPPORT_UID7_FIX_MANUFACTURER_BYTE
+
 #Support activating firmware upgrade mode through command-line
 SETTINGS	+= -DSUPPORT_FIRMWARE_UPGRADE
 
@@ -59,7 +62,7 @@ SETTINGS	+= -DLOG_SETTING_GLOBAL
 SETTINGS	+= -DDEFAULT_SETTING=SETTINGS_FIRST
 
 #Default pending task timeout
-SETTINGS	+= -DDEFAULT_PENDING_TASK_TIMEOUT=10 #* 100ms
+SETTINGS	+= -DDEFAULT_PENDING_TASK_TIMEOUT=50 #* 100ms
 
 
 #Use EEPROM to store settings

@@ -13,22 +13,21 @@
 
 /* Map IDs to text */
 static const MapEntryType PROGMEM ConfigurationMap[] = {
-	{ .Id = CONFIG_NONE, 			.Text = "NONE" },
-
+    { .Id = CONFIG_NONE, 			.Text = "NONE" },
 #ifdef CONFIG_MF_ULTRALIGHT_SUPPORT
-	{ .Id = CONFIG_MF_ULTRALIGHT, 	.Text = "MF_ULTRALIGHT" },
+    { .Id = CONFIG_MF_ULTRALIGHT, 	.Text = "MF_ULTRALIGHT" },
 #endif
 #ifdef CONFIG_MF_CLASSIC_1K_SUPPORT
-	{ .Id = CONFIG_MF_CLASSIC_1K, 	.Text = "MF_CLASSIC_1K" },
+    { .Id = CONFIG_MF_CLASSIC_1K, 	.Text = "MF_CLASSIC_1K" },
 #endif
 #ifdef CONFIG_MF_CLASSIC_1K_7B_SUPPORT
-	{ .Id = CONFIG_MF_CLASSIC_1K_7B, 	.Text = "MF_CLASSIC_1K_7B" },
+    { .Id = CONFIG_MF_CLASSIC_1K_7B, 	.Text = "MF_CLASSIC_1K_7B" },
 #endif
 #ifdef CONFIG_MF_CLASSIC_4K_SUPPORT
-	{ .Id = CONFIG_MF_CLASSIC_4K, 	.Text = "MF_CLASSIC_4K" },
+    { .Id = CONFIG_MF_CLASSIC_4K, 	.Text = "MF_CLASSIC_4K" },
 #endif
 #ifdef CONFIG_MF_CLASSIC_4K_7B_SUPPORT
-	{ .Id = CONFIG_MF_CLASSIC_4K_7B, 	.Text = "MF_CLASSIC_4K_7B" },
+    { .Id = CONFIG_MF_CLASSIC_4K_7B, 	.Text = "MF_CLASSIC_4K_7B" },
 #endif
 #ifdef CONFIG_MF_DESFIRE_SUPPORT
 	{ .Id = CONFIG_MF_DESFIRE,			.Text = "MF_DESFIRE" },
@@ -38,10 +37,10 @@ static const MapEntryType PROGMEM ConfigurationMap[] = {
 #endif
 
 #ifdef CONFIG_ISO14443A_SNIFF_SUPPORT
-	{ .Id = CONFIG_ISO14443A_SNIFF,	.Text = "ISO14443A_SNIFF" },
+    { .Id = CONFIG_ISO14443A_SNIFF,	.Text = "ISO14443A_SNIFF" },
 #endif
 #ifdef CONFIG_ISO14443A_READER_SUPPORT
-	{ .Id = CONFIG_ISO14443A_READER,	.Text = "ISO14443A_READER" },
+    { .Id = CONFIG_ISO14443A_READER,	.Text = "ISO14443A_READER" },
 #endif
 };
 
@@ -112,21 +111,21 @@ static const PROGMEM ConfigurationType ConfigurationTable[] = {
 	},
 #endif
 #ifdef CONFIG_MF_CLASSIC_1K_7B_SUPPORT
-	[CONFIG_MF_CLASSIC_1K_7B] = {
-		.CodecInitFunc = ISO14443ACodecInit,
-		.CodecDeInitFunc = ISO14443ACodecDeInit,
-		.CodecTaskFunc = ISO14443ACodecTask,
-		.ApplicationInitFunc = MifareClassicAppInit1K,
-		.ApplicationResetFunc = MifareClassicAppReset,
-		.ApplicationTaskFunc = MifareClassicAppTask,
-		.ApplicationTickFunc = ApplicationTickDummy,
-		.ApplicationProcessFunc = MifareClassicAppProcess,
-		.ApplicationGetUidFunc = MifareClassicGetUid,
-		.ApplicationSetUidFunc = MifareClassicSetUid,
-		.UidSize = ISO14443A_UID_SIZE_DOUBLE,
-		.MemorySize = MIFARE_CLASSIC_1K_MEM_SIZE,
-		.ReadOnly = false
-	},
+    [CONFIG_MF_CLASSIC_1K_7B] = {
+        .CodecInitFunc = ISO14443ACodecInit,
+        .CodecDeInitFunc = ISO14443ACodecDeInit,
+        .CodecTaskFunc = ISO14443ACodecTask,
+        .ApplicationInitFunc = MifareClassicAppInit1K7B,
+        .ApplicationResetFunc = MifareClassicAppReset,
+        .ApplicationTaskFunc = MifareClassicAppTask,
+        .ApplicationTickFunc = ApplicationTickDummy,
+        .ApplicationProcessFunc = MifareClassicAppProcess,
+        .ApplicationGetUidFunc = MifareClassicGetUid,
+        .ApplicationSetUidFunc = MifareClassicSetUid,
+        .UidSize = ISO14443A_UID_SIZE_DOUBLE,
+        .MemorySize = MIFARE_CLASSIC_1K_MEM_SIZE,
+        .ReadOnly = false
+    },
 #endif
 #ifdef CONFIG_MF_CLASSIC_4K_SUPPORT
 	[CONFIG_MF_CLASSIC_4K] = {
@@ -225,38 +224,38 @@ static const PROGMEM ConfigurationType ConfigurationTable[] = {
 	},
 #endif
 #ifdef CONFIG_ISO14443A_SNIFF_SUPPORT
-	[CONFIG_ISO14443A_SNIFF] = {
-		.CodecInitFunc = ISO14443ACodecInit,
-		.CodecDeInitFunc = ISO14443ACodecDeInit,
-		.CodecTaskFunc = ISO14443ACodecTask,
-		.ApplicationInitFunc = ApplicationInitDummy,
-		.ApplicationResetFunc = ApplicationResetDummy,
-		.ApplicationTaskFunc = ApplicationTaskDummy,
-		.ApplicationTickFunc = ApplicationTickDummy,
-		.ApplicationProcessFunc = ApplicationProcessDummy,
-		.ApplicationGetUidFunc = ApplicationGetUidDummy,
-		.ApplicationSetUidFunc = ApplicationSetUidDummy,
-		.UidSize = 0,
-		.MemorySize = 0,
-		.ReadOnly = true
-	},
+    [CONFIG_ISO14443A_SNIFF] = {
+        .CodecInitFunc = ISO14443ACodecInit,
+        .CodecDeInitFunc = ISO14443ACodecDeInit,
+        .CodecTaskFunc = ISO14443ACodecTask,
+        .ApplicationInitFunc = ApplicationInitDummy,
+        .ApplicationResetFunc = ApplicationResetDummy,
+        .ApplicationTaskFunc = ApplicationTaskDummy,
+        .ApplicationTickFunc = ApplicationTickDummy,
+        .ApplicationProcessFunc = ApplicationProcessDummy,
+        .ApplicationGetUidFunc = ApplicationGetUidDummy,
+        .ApplicationSetUidFunc = ApplicationSetUidDummy,
+        .UidSize = 0,
+        .MemorySize = 0,
+        .ReadOnly = true
+    },
 #endif
 #ifdef CONFIG_ISO14443A_READER_SUPPORT
-	[CONFIG_ISO14443A_READER] = {
-		.CodecInitFunc = Reader14443ACodecInit,
-		.CodecDeInitFunc = Reader14443ACodecDeInit,
-		.CodecTaskFunc = Reader14443ACodecTask,
-		.ApplicationInitFunc = Reader14443AAppInit,
-		.ApplicationResetFunc = Reader14443AAppReset,
-		.ApplicationTaskFunc = Reader14443AAppTask,
-		.ApplicationTickFunc = Reader14443AAppTick,
-		.ApplicationProcessFunc = Reader14443AAppProcess,
-		.ApplicationGetUidFunc = ApplicationGetUidDummy,
-		.ApplicationSetUidFunc = ApplicationSetUidDummy,
-		.UidSize = 0,
-		.MemorySize = 0,
-		.ReadOnly = false
-	},
+    [CONFIG_ISO14443A_READER] = {
+        .CodecInitFunc = Reader14443ACodecInit,
+        .CodecDeInitFunc = Reader14443ACodecDeInit,
+        .CodecTaskFunc = Reader14443ACodecTask,
+        .ApplicationInitFunc = Reader14443AAppInit,
+        .ApplicationResetFunc = Reader14443AAppReset,
+        .ApplicationTaskFunc = Reader14443AAppTask,
+        .ApplicationTickFunc = Reader14443AAppTick,
+        .ApplicationProcessFunc = Reader14443AAppProcess,
+        .ApplicationGetUidFunc = ApplicationGetUidDummy,
+        .ApplicationSetUidFunc = ApplicationSetUidDummy,
+        .UidSize = 0,
+        .MemorySize = 0,
+        .ReadOnly = false
+    },
 #endif
 };
 
@@ -272,11 +271,11 @@ void ConfigurationInit(void)
 
 void ConfigurationSetById( ConfigurationEnum Configuration )
 {
-	CodecDeInit();
+    CodecDeInit();
 
-	CommandLinePendingTaskBreak(); // break possibly pending task
+    CommandLinePendingTaskBreak(); // break possibly pending task
 
-	GlobalSettings.ActiveSettingPtr->Configuration = Configuration;
+    GlobalSettings.ActiveSettingPtr->Configuration = Configuration;
 
 	/* Copy struct from PROGMEM to RAM */
 	memcpy_P(&ActiveConfiguration,
@@ -288,7 +287,7 @@ void ConfigurationSetById( ConfigurationEnum Configuration )
 
 void ConfigurationGetByName(char* Configuration, uint16_t BufferSize)
 {
-	MapIdToText(ConfigurationMap, ARRAY_COUNT(ConfigurationMap), GlobalSettings.ActiveSettingPtr->Configuration, Configuration, BufferSize);
+    MapIdToText(ConfigurationMap, ARRAY_COUNT(ConfigurationMap), GlobalSettings.ActiveSettingPtr->Configuration, Configuration, BufferSize);
 }
 
 bool ConfigurationSetByName(const char* Configuration)
@@ -296,16 +295,16 @@ bool ConfigurationSetByName(const char* Configuration)
     MapIdType Id;
 
     if (MapTextToId(ConfigurationMap, ARRAY_COUNT(ConfigurationMap), Configuration, &Id)) {
-    	ConfigurationSetById(Id);
-    	LogEntry(LOG_INFO_CONFIG_SET, Configuration, StringLength(Configuration, CONFIGURATION_NAME_LENGTH_MAX-1));
-    	return true;
+        ConfigurationSetById(Id);
+        LogEntry(LOG_INFO_CONFIG_SET, Configuration, StringLength(Configuration, CONFIGURATION_NAME_LENGTH_MAX-1));
+        return true;
     } else {
-    	return false;
+        return false;
     }
 }
 
 void ConfigurationGetList(char* List, uint16_t BufferSize)
 {
-	MapToString(ConfigurationMap, ARRAY_COUNT(ConfigurationMap), List, BufferSize);
+    MapToString(ConfigurationMap, ARRAY_COUNT(ConfigurationMap), List, BufferSize);
 }
 
