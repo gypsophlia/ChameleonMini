@@ -147,6 +147,12 @@ spmhelper: $(TARGET).elf
 program: $(TARGET).hex $(TARGET).eep
 	avrdude $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_APP) $(AVRDUDE_WRITE_EEPROM)
 
+# Automatically set device to upgrade mode and program the it using avrdude
+program-upgrade: $(TARGET).hex $(TARGET).eep
+	../../Software/chamtool.py -p /dev/cu.usbmodem1411 -ug
+	sleep 2
+	avrdude $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_APP) $(AVRDUDE_WRITE_EEPROM)
+
 # Program the device using avrdude with the latest official firmware
 program-latest:
 	avrdude $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_APP_LATEST) $(AVRDUDE_WRITE_EEPROM_LATEST)
